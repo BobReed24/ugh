@@ -3,10 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger deployment when pushing to main branch
+      - main  # Trigger deployment when pushing to the main branch
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Start the server (generate files)
-        run: npm start  # If npm start generates files, otherwise skip this step
+      - name: Start server
+        run: |
+          nohup npm start &  # Start the server in the background
+          sleep 30  # Give the server enough time to do whatever it needs (adjust as needed)
+
+      - name: Stop server (optional)
+        run: kill $(ps aux | grep 'node app.js' | awk '{print $1}')  # This stops the server after a certain time, if necessary
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public  # Adjust this to your generated files directory
+          publish_dir: ./public  # Adjust this to your generated/static files folder
