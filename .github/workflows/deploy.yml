@@ -26,9 +26,6 @@ jobs:
           nohup npm start &  # Start the server in the background
           sleep 30  # Give the server enough time to do whatever it needs (adjust as needed)
 
-      - name: Stop server (optional)
-        run: kill $(ps aux | grep 'node app.js' | awk '{print $1}')  # This stops the server after a certain time, if necessary
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
