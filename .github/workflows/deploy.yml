@@ -24,7 +24,7 @@ jobs:
       - name: Start server
         run: |
           nohup npm start &  # Start the server in the background
-          sleep 30  # Give the server enough time to do whatever it needs (adjust as needed)
+          sleep 10  # Give the server enough time to do whatever it needs (adjust as needed)
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
