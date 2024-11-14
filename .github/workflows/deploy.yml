@@ -3,29 +3,29 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Deploy when pushing to the main branch
+      - main  # Trigger deployment when pushing to main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '16'  # Specify the version you need
 
       - name: Install dependencies
-        run: npm install express
+        run: npm install
 
-      - name: Build the app
-        run: npm start  # Adjust based on your build script
+      - name: Start the server (generate files)
+        run: npm start  # If npm start generates files, otherwise skip this step
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Adjust to your output directory
+          publish_dir: ./public  # Adjust this to your generated files directory
