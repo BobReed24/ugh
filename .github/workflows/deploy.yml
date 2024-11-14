@@ -19,7 +19,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install express
 
       - name: Build the app
         run: npm run build  # Adjust based on your build script
